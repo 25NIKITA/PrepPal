@@ -1,3 +1,8 @@
+//like a wrapper, it has a common navigation bar like footer,header etc
+//so whatever is passed on it renders as it is.
+
+
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
