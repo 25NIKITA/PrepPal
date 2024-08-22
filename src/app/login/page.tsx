@@ -1,6 +1,6 @@
 'use client';
 
-import Link from "next/Link";
+import Link from "next/link"; // Ensure 'link' is lowercase
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -13,7 +13,7 @@ export default function LoginPage() {
     password: "",
   });
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true); // Start with the button disabled
   const [loading, setLoading] = useState(false);
 
   const onLogin = async () => {
@@ -28,6 +28,7 @@ export default function LoginPage() {
         toast.error(response.data.error || 'Login failed');
       }
     } catch (error: any) {
+      console.error('Login error:', error); // Log the error for debugging
       toast.error(error.response?.data?.error || 'Login failed');
     } finally {
       setLoading(false);
@@ -35,11 +36,7 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (user.email.length > 0 && user.password.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
+    setButtonDisabled(!(user.email.length > 0 && user.password.length > 0));
   }, [user]);
 
   return (
