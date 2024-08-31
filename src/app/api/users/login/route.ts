@@ -15,14 +15,15 @@ export async function POST(request: NextRequest) {
         // Check if the user exists
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('User not found:', email);
+            
             return NextResponse.json({ error: "User does not exist" }, { status: 400 });
         }
+        console.log('user exists');
 
         // Check if the password is correct
         const validPassword = await bcryptjs.compare(password, user.password);
         if (!validPassword) {
-            console.log('Invalid password for user:', email);
+            
             return NextResponse.json({ error: 'Invalid password' }, { status: 400 });
         }
 

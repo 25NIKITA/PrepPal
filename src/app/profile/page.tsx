@@ -162,61 +162,63 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100'>
-      <h1 className="text-4xl font-semibold text-green-800 mb-8">{slides[currentSlide].title}</h1>
+    <div className='flex flex-col items-center justify-center min-h-screen py-8 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'>
+      <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-xl transform transition hover:scale-105 hover:shadow-2xl">
+        <h1 className="text-4xl font-extrabold text-purple-900 mb-8">{slides[currentSlide].title}</h1>
 
-      <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg relative">
-        {slides[currentSlide].fields.map((field) => (
-          <div key={field.id} className="mb-5">
-            <label htmlFor={field.id} className="block text-lg font-medium text-gray-700 mb-2">
-              {field.label}
-            </label>
-            {field.type === 'dropdown' ? (
-              <>
-                <button
-                  type="button"
-                  onClick={toggleDropdown}
-                  className="w-full p-3 border border-gray-300 rounded-lg flex justify-between items-center bg-green-50 text-green-700 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-                  {user[field.id] || `Select ${field.label.toLowerCase()}`}
-                  <svg
-                    className={`w-5 h-5 ml-2 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+        <div className="space-y-6">
+          {slides[currentSlide].fields.map((field) => (
+            <div key={field.id} className="mb-5">
+              <label htmlFor={field.id} className="block text-lg font-medium text-purple-700 mb-2">
+                {field.label}
+              </label>
+              {field.type === 'dropdown' ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={toggleDropdown}
+                    className="w-full p-3 border border-gray-300 rounded-lg flex justify-between items-center bg-purple-50 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                    {user[field.id] || `Select ${field.label.toLowerCase()}`}
+                    <svg
+                      className={`w-5 h-5 ml-2 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
 
-                {dropdownOpen && (
-                  <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-                    {field.options?.map((option) => (
-                      <div
-                        key={option}
-                        onClick={() => handleOptionSelect(field.id, option)}
-                        className={`p-3 cursor-pointer hover:bg-green-50 ${user[field.id] === option ? 'bg-green-100' : ''}`}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <input
-                id={field.id}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                type="text"
-                value={field.value}
-                onChange={field.onChange}
-                placeholder={field.label}
-              />
-            )}
-            {errors[field.id] && <p className="text-red-500 text-sm">{errors[field.id]}</p>}
-          </div>
-        ))}
+                  {dropdownOpen && (
+                    <div className="absolute mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                      {field.options?.map((option) => (
+                        <div
+                          key={option}
+                          onClick={() => handleOptionSelect(field.id, option)}
+                          className={`p-3 cursor-pointer hover:bg-purple-50 ${user[field.id] === option ? 'bg-purple-100' : ''}`}
+                        >
+                          {option}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <input
+                  id={field.id}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  type="text"
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder={field.label}
+                />
+              )}
+              {errors[field.id] && <p className="text-red-500 text-sm">{errors[field.id]}</p>}
+            </div>
+          ))}
+        </div>
 
         <div className="flex justify-between mt-8">
           {currentSlide > 0 && (
@@ -230,7 +232,7 @@ export default function ProfilePage() {
           {currentSlide < slides.length - 1 ? (
             <button
               onClick={handleNext}
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none"
+              className="px-6 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 focus:outline-none"
             >
               Next
             </button>
@@ -239,7 +241,7 @@ export default function ProfilePage() {
               onClick={handleSubmit}
               className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none"
             >
-              Create Profile
+              Submit
             </button>
           )}
         </div>
