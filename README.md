@@ -1,4 +1,4 @@
-#PrepPal
+###PrepPal###
 
 PrepPal is an innovative platform designed for smart education, aimed at connecting students, exam takers, and lifelong learners with like-minded study partners to create a supportive community for collaborative learning. PrepPal combines advanced matchmaking algorithms, task management, and study tools to foster a productive and engaging learning environment.
 
