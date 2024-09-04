@@ -2,18 +2,12 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white overflow-hidden">
+    <main className="relative min-h-screen text-white overflow-hidden">
       {/* Hero Section with Background Image */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen">
-        <div className="absolute inset-0 z-0">
-          <video
-            src="/hero-video.mp4" // Replace with a vibrant video background
-            autoPlay
-            muted
-            loop
-            className="w-full h-full object-cover opacity-50"
-          />
-        </div>
+      <section
+        className="relative flex flex-col items-center justify-center min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: 'url(/landing_bg.jpg)' }} // Add your background image here
+      >
         <div className="relative z-10 text-center p-8">
           <h1 className="text-7xl font-extrabold tracking-tight text-white mb-6 animate-bounce">
             PrepPal

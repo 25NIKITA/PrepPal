@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function MatchingPage() {
+export default function ResourcesPage() {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -20,46 +20,6 @@ export default function MatchingPage() {
   const closeDropdown = () => {
     setDropdownOpen(false);
   };
-
-  const profiles = [
-    {
-      name: 'Nikita Naik',
-      image: '/nikita.jpeg', // replace with actual path
-      degree: 'Engineering ENTC',
-      location: 'Pune, India',
-      focus: 'CAT',
-      linkedin: '#',
-      github: '#',
-      about: 'Hi! I am pursuing Engineering in ENTC. I am interested in Web development...',
-      interests: ['SAT', 'CAT'],
-      score: 57,
-    },
-    {
-      name: 'Shruti Nayak',
-      image: '/shruti.jpeg', // replace with actual path
-      degree: 'Engineering ENTC',
-      location: 'Pune, India',
-      focus: 'CAT',
-      linkedin: '#',
-      github: '#',
-      about: 'Hi! I am pursuing Engineering in ENTC. I am passionate about Business Analytics...',
-      interests: ['SAT', 'CAT', 'Marketing'],
-      score: 57,
-      showEmojis: true, // Added a flag to display emojis for this profile
-    },
-    {
-      name: 'Raj Sharma',
-      image: '/raj.jpeg', // replace with actual path
-      degree: 'BCA',
-      location: 'Paris',
-      focus: 'GMAT',
-      linkedin: '#',
-      github: '#',
-      about: 'Hi! I am pursuing BCA. I am passionate about Business Analytics...',
-      interests: ['GMAT', 'SAT', 'Marketing'],
-      score: 18,
-    },
-  ];
 
   return (
     <div className="flex min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
@@ -109,7 +69,7 @@ export default function MatchingPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col relative">
         <header className="w-full flex items-center justify-between p-4 bg-white bg-opacity-70 shadow-md">
-          <div className="text-2xl font-extrabold text-gray-800">Find Your Study Partner</div>
+          <div className="text-2xl font-extrabold text-gray-800">Resources</div>
           <div className="relative">
             <img
               src="/profile-pic.jpeg"
@@ -143,37 +103,41 @@ export default function MatchingPage() {
         </header>
 
         <main className="flex-1 flex flex-col items-center justify-center text-center mt-4">
-          <div className="flex flex-wrap justify-center gap-6">
-            {profiles.map((profile, index) => (
-              <div key={index} className="bg-white bg-opacity-80 p-6 rounded-lg shadow-xl w-80">
-                <img src={profile.image} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-4" />
-                <h2 className="text-xl font-bold text-gray-800">{profile.name}</h2>
-                <p className="text-sm text-gray-600">{profile.degree}</p>
-                <p className="text-sm text-gray-600">{profile.location}</p>
-                <p className="text-sm text-gray-600">Focus: {profile.focus}</p>
-                <div className="flex justify-center mt-2">
-                  <a href={profile.linkedin} className="mx-2 text-blue-500 hover:underline">LinkedIn</a>
-                  <a href={profile.github} className="mx-2 text-black hover:underline">GitHub</a>
-                </div>
-                <p className="mt-4 text-gray-600">{profile.about}</p>
-                <div className="flex justify-center mt-4">
-                  {profile.interests.map((interest, i) => (
-                    <span key={i} className="bg-green-200 text-green-800 text-xs px-2 py-1 rounded-full mx-1">
-                      {interest}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-4 text-gray-800 text-xl font-bold">{profile.score}</div>
-
-                {/* Adding tick and cross emojis below Shruti Nayak's profile */}
-                {profile.showEmojis && (
-                  <div className="flex justify-center mt-4">
-                    <span className="text-green-500 text-2xl mx-2">✔️</span>
-                    <span className="text-red-500 text-2xl mx-2">❌</span>
-                  </div>
-                )}
+          <div className="flex flex-col space-y-6 p-4">
+            <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-xl">
+              <h2 className="text-xl font-bold text-gray-800">#CAT Resources</h2>
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold text-gray-700">Notes</h3>
+                <ul className="list-disc list-inside mt-2">
+                  <li><a href="/resources/cat/notes1.pdf" className="text-blue-500 hover:underline">Notes 1</a></li>
+                  <li><a href="/resources/cat/notes2.pdf" className="text-blue-500 hover:underline">Notes 2</a></li>
+                </ul>
               </div>
-            ))}
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold text-gray-700">PDFs</h3>
+                <ul className="list-disc list-inside mt-2">
+                  <li><a href="/resources/cat/pdf1.pdf" className="text-blue-500 hover:underline">PDF 1</a></li>
+                  <li><a href="/resources/cat/pdf2.pdf" className="text-blue-500 hover:underline">PDF 2</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-xl">
+              <h2 className="text-xl font-bold text-gray-800">#GRE Resources</h2>
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold text-gray-700">Notes</h3>
+                <ul className="list-disc list-inside mt-2">
+                  <li><a href="/resources/gre/notes1.pdf" className="text-blue-500 hover:underline">Notes 1</a></li>
+                  <li><a href="/resources/gre/notes2.pdf" className="text-blue-500 hover:underline">Notes 2</a></li>
+                </ul>
+              </div>
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold text-gray-700">PDFs</h3>
+                <ul className="list-disc list-inside mt-2">
+                  <li><a href="/resources/gre/pdf1.pdf" className="text-blue-500 hover:underline">PDF 1</a></li>
+                  <li><a href="/resources/gre/pdf2.pdf" className="text-blue-500 hover:underline">PDF 2</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </main>
 

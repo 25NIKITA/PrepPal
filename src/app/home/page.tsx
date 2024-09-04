@@ -14,17 +14,16 @@ export default function HomePage() {
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const isProfileComplete = localStorage.getItem('profileComplete') === 'true';
-
     if (!isLoggedIn) {
-      router.push('/login'); // Redirect to login if not logged in
+      router.push('/login');
       return;
     }
 
+    const isProfileComplete = localStorage.getItem('profileComplete') === 'true';
     setProfileComplete(isProfileComplete);
 
     if (!isProfileComplete) {
-      router.push('/profile'); // Redirect to profile if not complete
+      router.push('/profile');
     }
   }, [router]);
 
@@ -54,7 +53,6 @@ export default function HomePage() {
     setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
   };
 
-  // Ensure that the component doesn't render if profile isn't complete
   if (!profileComplete) {
     return null;
   }
@@ -77,7 +75,42 @@ export default function HomePage() {
                 <span className="ml-3">Home</span>
               </button>
             </li>
-            {/* Add other navigation items */}
+            <li className="group">
+              <button
+                onClick={() => router.push('/matching')}
+                className="flex items-center p-3 text-left hover:bg-purple-600 transition-all duration-300 w-full"
+              >
+                <span className="text-2xl">💡</span>
+                <span className="ml-3">Matching</span>
+              </button>
+            </li>
+            <li className="group">
+              <button
+                onClick={() => router.push('/study-rooms')}
+                className="flex items-center p-3 text-left hover:bg-purple-600 transition-all duration-300 w-full"
+              >
+                <span className="text-2xl">📖</span>
+                <span className="ml-3">Study Rooms</span>
+              </button>
+            </li>
+            <li className="group">
+              <button
+                onClick={() => router.push('/community')}
+                className="flex items-center p-3 text-left hover:bg-purple-600 transition-all duration-300 w-full"
+              >
+                <span className="text-2xl">🤝</span>
+                <span className="ml-3">Community</span>
+              </button>
+            </li>
+            <li className="group">
+              <button
+                onClick={() => router.push('/resources')}
+                className="flex items-center p-3 text-left hover:bg-purple-600 transition-all duration-300 w-full"
+              >
+                <span className="text-2xl">📚</span>
+                <span className="ml-3">Resources</span>
+              </button>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -85,7 +118,7 @@ export default function HomePage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col relative">
         <header className="w-full flex items-center justify-between p-4 bg-white bg-opacity-90 shadow-md">
-          <div className="text-2xl font-extrabold text-purple-800">Welcome to Preppal</div>
+          <div className="text-2xl font-extrabold text-purple-800">Welcome to PrepPal</div>
           <div className="relative">
             <img
               src="/profile-pic.jpeg"
@@ -100,13 +133,16 @@ export default function HomePage() {
                     router.push('/profile');
                     closeDropdown();
                   }}
-                  className="w-full text-left px-4 py-3 hover:bg-purple-50 transition-colors"
+                  className="w-full text-left px-4 py-3 hover:bg-purple-50 transition duration-300"
                 >
-                  Profile
+                  View Profile
                 </button>
                 <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-3 text-red-500 hover:bg-purple-50 transition-colors"
+                  onClick={() => {
+                    handleLogout();
+                    closeDropdown();
+                  }}
+                  className="w-full text-left px-4 py-3 hover:bg-purple-50 transition duration-300"
                 >
                   Logout
                 </button>
@@ -115,40 +151,55 @@ export default function HomePage() {
           </div>
         </header>
 
-        <main className="flex-1 p-4 space-y-4 overflow-auto">
-          <h2 className="text-2xl font-extrabold text-purple-900">{`Current Time: ${time}`}</h2>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-extrabold text-purple-700">Tasks</h3>
-            <ul className="mt-4">
-              {tasks.map(task => (
-                <li key={task.id} className="flex items-center justify-between">
-                  <span className={`text-purple-900 ${task.completed ? 'line-through' : ''}`}>{task.text}</span>
-                  <button
-                    onClick={() => toggleTaskCompletion(task.id)}
-                    className="p-2 rounded-full bg-purple-200 text-purple-800 hover:bg-purple-300 transition"
-                  >
-                    {task.completed ? '✅' : '⏳'}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 flex">
+        <main className="flex-1 flex flex-col items-center justify-center text-center relative mt-4">
+          {/* Timer */}
+          <div className="absolute top-6 right-8 bg-white bg-opacity-90 p-4 rounded-lg shadow-xl z-10">
+            <h2 className="text-lg font-semibold text-purple-800">Pomodoro Timer</h2>
+            <div className="text-2xl font-bold text-purple-600">
+              {Math.floor(time / 3600)}:{String(Math.floor((time % 3600) / 60)).padStart(2, '0')}:
+              {String(time % 60).padStart(2, '0')}
+            </div>
+          </div>
+
+          {/* Task Manager */}
+          <div className="w-full max-w-lg p-6 bg-white bg-opacity-90 rounded-lg shadow-xl mt-16">
+            <h2 className="text-xl font-semibold text-purple-800 mb-4">Task Manager</h2>
+            <div className="mb-4">
               <input
                 type="text"
                 value={newTask}
-                onChange={e => setNewTask(e.target.value)}
-                className="flex-1 p-2 border border-purple-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
-                placeholder="Add new task..."
+                onChange={(e) => setNewTask(e.target.value)}
+                placeholder="Add a new task"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
               <button
                 onClick={addTask}
-                className="px-4 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition"
+                className="mt-2 w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-300"
               >
-                Add
+                Add Task
               </button>
             </div>
+            <ul className="space-y-3">
+              {tasks.map(task => (
+                <li key={task.id} className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg transition duration-300">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleTaskCompletion(task.id)}
+                    className="form-checkbox h-6 w-6 text-purple-600"
+                  />
+                  <span className={`flex-1 ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                    {task.text}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </main>
+
+        <footer className="w-full p-4 text-center text-gray-600 bg-gray-200">
+          © 2024 Preppal
+        </footer>
       </div>
     </div>
   );
